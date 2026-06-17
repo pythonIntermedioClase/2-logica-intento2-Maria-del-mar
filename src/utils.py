@@ -375,6 +375,9 @@ def esta_al_dia(dias_mora):
         esta_al_dia(1)   -> False
         esta_al_dia(30)  -> False
     """
+    # 1. Escribe un if/else:
+    #    - si dias_mora == 0: retorna True
+    #    - de lo contrario: retorna False
     if dias_mora == 0:
         return True
     else:
@@ -396,15 +399,18 @@ def aplicar_descuento(valor, pago_voluntario):
         aplicar_descuento(1_000_000, True)   -> 900000.0
         aplicar_descuento(1_000_000, False)  -> 1000000
     """
-    # TODO:
     # 1. Si pago_voluntario es True:
     #    - Calcula el descuento: descuento = valor * 0.10
     #    - Calcula el valor final: valor_con_descuento = valor - descuento
     #    - Retorna valor_con_descuento
     # 2. Si pago_voluntario es False:
     #    - Retorna valor sin modificar
-    pass
-
+    if pago_voluntario == True:
+        descuento = valor * 0.10
+        valor_con_descuento = valor - descuento
+        return valor_con_descuento
+    else:
+        return valor
 
 def asignar_prioridad(valor, tiene_historial_incumplimiento):
     """
@@ -422,7 +428,6 @@ def asignar_prioridad(valor, tiene_historial_incumplimiento):
     Returns:
         str: "ALTA", "MEDIA" o "BAJA".
     """
-    # TODO:
     # 1. Evalúa las dos condiciones por separado y guárdalas en variables:
     #    valor_alto = valor > 1_000_000
     #    tiene_historial = tiene_historial_incumplimiento
@@ -430,9 +435,14 @@ def asignar_prioridad(valor, tiene_historial_incumplimiento):
     #    - si valor_alto AND tiene_historial: retorna "ALTA"
     #    - si valor_alto OR tiene_historial: retorna "MEDIA"
     #    - de lo contrario: retorna "BAJA"
-    pass
-
-
+    valor_alto = valor > 1_000_000
+    tiene_historial = tiene_historial_incumplimiento
+    if valor_alto and tiene_historial:
+        return "ALTA"
+    elif valor_alto or tiene_historial:
+        return "MEDIA"
+    else:
+        return "BAJA"
 # ---------------------------------------------------------------------------
 # CONDICIONALES ANIDADOS
 # ---------------------------------------------------------------------------
@@ -652,14 +662,18 @@ def imprimir_nits_validos(nits):
     Args:
         nits (list): Lista de NITs como cadenas de texto.
     """
-    # TODO:
     # 1. Imprime el encabezado: print("NITs válidos:")
     # 2. Inicializa un contador: contador = 1
     # 3. Recorre la lista con: for nit in nits:
     #    - Llama a validar_nit(nit)
     #    - Si es válido: imprime "  {contador}. {nit}"
     #      e incrementa: contador = contador + 1
-    pass
+    print("NITs válidos:")
+    contador = 1
+    for nit in nits:
+        if validar_nit(nit):
+            print(f"  {contador}: {nit}")
+            contador = contador + 1    
 
 
 def calcular_totales(valores):
@@ -680,7 +694,6 @@ def calcular_totales(valores):
         total, promedio, maximo = calcular_totales([100, 200, 300])
         # total=600, promedio=200.0, maximo=300
     """
-    # TODO:
     # 1. Inicializa el acumulador: total = 0
     # 2. Inicializa el máximo con el primer elemento: maximo = valores[0]
     #    (así tenemos un valor real con el que comparar en el ciclo)
@@ -689,8 +702,14 @@ def calcular_totales(valores):
     #    - Actualiza el máximo: si valor > maximo, haz maximo = valor
     # 4. Calcula el promedio: promedio = total / len(valores)
     # 5. Retorna total, promedio, maximo (los tres en esa línea)
-    pass
-
+    total = 0
+    maximo = valores[0]
+    for valor in valores:
+        total = total + valor
+        if valor > maximo:
+            maximo = valor
+    promedio = total / len(valores)
+    return total, promedio, maximo  
 
 def generar_periodos_multiple(anio_inicio, anio_fin, meses_por_anio=12):
     """
@@ -711,7 +730,6 @@ def generar_periodos_multiple(anio_inicio, anio_fin, meses_por_anio=12):
         generar_periodos_multiple(2024, 2025, 3)
         -> ['202401', '202402', '202403', '202501', '202502', '202503']
     """
-    # TODO:
     # 1. Crea una lista vacía: periodos = []
     # 2. Ciclo externo: for anio in range(anio_inicio, anio_fin + 1):
     #    (el +1 es para que anio_fin quede incluido)
@@ -720,8 +738,12 @@ def generar_periodos_multiple(anio_inicio, anio_fin, meses_por_anio=12):
     #      (el :02d formatea el mes con cero a la izquierda: 1 -> "01")
     #    - Agrega a la lista: periodos.append(codigo)
     # 4. Retorna periodos
-    pass
-
+    periodos = []
+    for anio in range(anio_inicio, anio_fin + 1):
+        for mes in range(1, meses_por_anio + 1):
+                codigo = f"{anio}{mes:02d}"
+                periodos.append(codigo)
+    return periodos
 
 # ---------------------------------------------------------------------------
 # CICLOS WHILE
