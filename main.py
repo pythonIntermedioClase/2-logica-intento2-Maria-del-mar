@@ -21,7 +21,11 @@ from src.utils import formatear_reporte_valor
 from src.utils import mostrar_resultado
 from src.utils import generar_ficha_contribuyente
 
-
+from src.utils import limpiar_nit
+from src.utils import validar_nit
+from src.utils import procesar_nit
+from src.utils import normalizar_texto
+from src.utils import pipeline_nit
 
 from src.utils import esta_al_dia
 from src.utils import aplicar_descuento
@@ -85,12 +89,12 @@ def menu_funciones_basicas():
 def menu_encadenamiento():
     """Sección 2: encadenamiento de funciones."""
     print("\n--- Encadenamiento de funciones ---")
-
-    # TODO: descomenta cuando hayas completado limpiar_nit y validar_nit
-    # casos = ["900-123-456", "800.234.567", "ABC123", "123", "8001234560"]
-    # for nit in casos:
-    #     resultado = procesar_nit(nit)
-    #     print(f"  {resultado}")
+    texto_norm = normalizar_texto("  empresa  abc  ")
+    print(texto_norm)
+    casos = ["900-123-456", "800.234.567", "ABC123", "123", "8001234560"]
+    for nit in casos:
+        resultado = procesar_nit(nit)
+        print(f"  {resultado}")
 
     # TODO: descomenta cuando hayas completado pipeline_nit
     # print()
@@ -103,13 +107,12 @@ def menu_encadenamiento():
 def menu_condicionales_simples():
     """Sección 3: condicionales simples."""
     print("\n--- Condicionales simples ---")
-
-    # TODO: descomenta cuando hayas completado esta_al_dia
-    # casos_mora = [0, 1, 30, 90]
-    # for dias in casos_mora:
-    #     al_dia = esta_al_dia(dias)
-    #     estado = "Al día" if al_dia else "En mora"
-    #     print(f"  {dias} días de mora → {estado}")
+    
+    casos_mora = [0, 1, 30, 90]
+    for dias in casos_mora:
+        al_dia = esta_al_dia(dias)
+        estado = "Al día" if al_dia else "En mora"
+        print(f"  {dias} días de mora → {estado}")
 
     # TODO: descomenta cuando hayas completado aplicar_descuento
     # valor_base = 1_000_000
@@ -123,8 +126,7 @@ def menu_condicionales_simples():
     # for valor, historial in casos:
     #     prioridad = asignar_prioridad(valor, historial)
     #     print(f"  ${valor:,} / historial={historial} → {prioridad}")
-    pass
-
+    
 
 def menu_condicionales_anidados():
     """Sección 4: condicionales anidados."""

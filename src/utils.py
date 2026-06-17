@@ -233,14 +233,14 @@ def limpiar_nit(nit):
         limpiar_nit("900.123.456")  -> "900123456"
         limpiar_nit("900123456")    -> "900123456"
     """
-    # TODO:
     # 1. Elimina los guiones del nit con .replace("-", "") y guarda el
     #    resultado en una variable llamada sin_guiones.
     # 2. Elimina los puntos de sin_guiones con .replace(".", "") y guarda
     #    el resultado en una variable llamada sin_puntos.
     # 3. Retorna sin_puntos.
-    pass
-
+    sin_guiones = nit.replace("-", "")
+    sin_puntos = sin_guiones.replace(".", "")
+    return sin_puntos
 
 def validar_nit(nit):
     """
@@ -261,15 +261,16 @@ def validar_nit(nit):
         validar_nit("ABC123")       -> False
         validar_nit("123")          -> False
     """
-    # TODO:
     # 1. Llama a limpiar_nit(nit) y guarda el resultado en nit_limpio.
     # 2. Verifica que nit_limpio solo tenga dígitos con .isdigit() y
     #    guarda el resultado (True/False) en solo_digitos.
     # 3. Verifica que la longitud sea válida:
     #    longitud_valida = len(nit_limpio) >= 9 and len(nit_limpio) <= 10
     # 4. Retorna solo_digitos and longitud_valida.
-    pass
-
+    nit_limpio = limpiar_nit(nit)
+    solo_digitos = nit_limpio.isdigit()
+    longitud_valida = len(nit_limpio) >= 9 and len(nit_limpio) <= 10
+    return solo_digitos and longitud_valida
 
 def normalizar_texto(texto):
     """
@@ -288,13 +289,12 @@ def normalizar_texto(texto):
         normalizar_texto("  bogotá d.c.  ")  -> "BOGOTÁ D.C."
         normalizar_texto("  empresa  abc  ") -> "EMPRESA ABC"
     """
-    # TODO:
     # Encadena tres métodos en una sola expresión y retorna el resultado:
     # 1. texto.strip()           elimina espacios al inicio y al final
     # 2. .upper()                convierte a mayúsculas
     # 3. .replace("  ", " ")     elimina espacios dobles internos
     # Retorna todo en una sola línea: return texto.strip().upper().replace(...)
-    pass
+    return texto.strip().upper().replace("  ", " ")
 
 
 def procesar_nit(nit):
@@ -311,7 +311,6 @@ def procesar_nit(nit):
         procesar_nit("900-123-456")  -> "NIT 900123456: válido"
         procesar_nit("ABC-123")      -> "NIT ABC-123: INVÁLIDO"
     """
-    # TODO:
     # 1. Llama a limpiar_nit(nit) y guarda el resultado en nit_limpio.
     # 2. Llama a validar_nit(nit_limpio) y guarda el resultado en es_valido.
     # 3. Si es_valido es True:
@@ -319,8 +318,13 @@ def procesar_nit(nit):
     # 4. Si es_valido es False:
     #    mensaje = f"NIT {nit}: INVÁLIDO"
     # 5. Retorna mensaje.
-    pass
-
+    nit_limpio = limpiar_nit(nit)
+    es_valido = validar_nit(nit_limpio)
+    if es_valido is True:
+        mensaje = f"NIT {nit_limpio}: válido"
+    else:
+        mensaje = f"NIT {nit}: INVÁLIDO"
+    return mensaje
 
 def pipeline_nit(nit):
     """
@@ -337,7 +341,6 @@ def pipeline_nit(nit):
         pipeline_nit("900-123-456")  -> "NIT 900123456 — apto para procesamiento"
         pipeline_nit("ABC-123")      -> "NIT ABC-123 — rechazado: formato inválido"
     """
-    # TODO:
     # 1. Llama a limpiar_nit(nit) y guarda el resultado en nit_limpio.
     # 2. Llama a validar_nit(nit_limpio) y guarda el resultado en es_valido.
     # 3. Si es_valido es True:
@@ -345,8 +348,13 @@ def pipeline_nit(nit):
     # 4. Si es_valido es False:
     #    informe = f"NIT {nit} — rechazado: formato inválido"
     # 5. Retorna informe.
-    pass
-
+    nit_limpio = limpiar_nit(nit)
+    es_valido = validar_nit(nit_limpio)
+    if es_valido is True:
+        informe = f"NIT {nit_limpio} — apto para procesamiento"
+    else:
+        informe = f"NIT {nit} — rechazado: formato inválido"
+    return informe
 
 # ---------------------------------------------------------------------------
 # CONDICIONALES SIMPLES
@@ -367,11 +375,10 @@ def esta_al_dia(dias_mora):
         esta_al_dia(1)   -> False
         esta_al_dia(30)  -> False
     """
-    # TODO:
-    # 1. Escribe un if/else:
-    #    - si dias_mora == 0: retorna True
-    #    - de lo contrario: retorna False
-    pass
+    if dias_mora == 0:
+        return True
+    else:
+        return False
 
 
 def aplicar_descuento(valor, pago_voluntario):
